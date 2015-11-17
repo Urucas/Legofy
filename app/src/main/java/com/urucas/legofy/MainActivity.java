@@ -6,6 +6,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
@@ -96,14 +98,30 @@ public class MainActivity extends AppCompatActivity {
             if(canvas != null) {
                 // set canvas background color to white
                 canvas.drawColor(Color.WHITE);
+
+                Bitmap flower = BitmapFactory.decodeResource(getResources(), R.drawable.flower);
+
                 Bitmap brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick);
+                float[] colorTransform = {
+                        0, 1f, 0, 0, 0,
+                        0, 0, 0f, 0, 0,
+                        0, 0, 0, 0f, 0,
+                        0, 0, 0, 1f, 0};
+
+                ColorMatrix colorMatrix = new ColorMatrix();
+                colorMatrix.setSaturation(0f); //Remove Colour
+                colorMatrix.set(colorTransform); //Apply the Red
+
+                ColorMatrixColorFilter colorFilter = new ColorMatrixColorFilter(colorMatrix);
+                Paint paint = new Paint();
+                paint.setColorFilter(colorFilter);
 
                 // drawing bricks
                 int brick_width = brick.getWidth(), brick_height = brick.getHeight();
                 int y = 0, x = 0;
                 while(y < height) {
                     while(x < width) {
-                        canvas.drawBitmap(brick, x, y, null);
+                        canvas.drawBitmap(brick, x, y, paint);
                         x+= brick_width;
                     }
                     x = 0;
