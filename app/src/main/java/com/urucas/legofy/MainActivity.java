@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
     public class LegoView extends SurfaceView implements SurfaceHolder.Callback2 {
 
-        private final int height, width;
+        private final int screenHeight, screenWidth;
 
         public LegoView(Context context) {
             super(context);
@@ -77,13 +78,12 @@ public class MainActivity extends AppCompatActivity {
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
                 Point size = new Point();
                 display.getSize(size);
-                height = size.y;
-                width = size.x;
+                screenHeight = size.y;
+                screenWidth = size.x;
             }else {
-                height = display.getHeight();
-                width = display.getWidth();
+                screenHeight = display.getHeight();
+                screenWidth = display.getWidth();
             }
-
             getHolder().addCallback(this);
         }
 
@@ -101,32 +101,50 @@ public class MainActivity extends AppCompatActivity {
 
                 Bitmap flower = BitmapFactory.decodeResource(getResources(), R.drawable.flower);
 
+                int flower_width = flower.getWidth(), flower_height = flower.getHeight();
+                if(flower_width < screenWidth) {
+                    Log.i("here", "yes");
+                    int percent = (flower_width*100)/screenWidth;
+                    float scaleHeight = (percent*flower_height)/screenHeight;
+                    Matrix matrix = new Matrix();
+                    matrix.postScale(screenWidth, scaleHeight);
+                    flower = Bitmap.createBitmap(flower, 0, 0, flower_width, flower_height, matrix, false);
+                }
                 Bitmap brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick);
-                float[] colorTransform = {
-                        0, 1f, 0, 0, 0,
-                        0, 0, 0f, 0, 0,
-                        0, 0, 0, 0f, 0,
-                        0, 0, 0, 1f, 0};
 
-                ColorMatrix colorMatrix = new ColorMatrix();
-                colorMatrix.setSaturation(0f); //Remove Colour
-                colorMatrix.set(colorTransform); //Apply the Red
-
-                ColorMatrixColorFilter colorFilter = new ColorMatrixColorFilter(colorMatrix);
-                Paint paint = new Paint();
-                paint.setColorFilter(colorFilter);
 
                 // drawing bricks
                 int brick_width = brick.getWidth(), brick_height = brick.getHeight();
                 int y = 0, x = 0;
-                while(y < height) {
-                    while(x < width) {
+                while(y < screenHeight) {
+                    while(x < screenWidth) {
+                        int pos_x = (x + brick_width)/2, pos_y = (y + brick_height)/2;
+                        ColorMatrix colorMatrix = new ColorMatrix();
+                        colorMatrix.setSaturation(0f);
+
+                        int colour = flower.getPixel(pos_x,pos_y);
+
+                        float[] colorTransform = {
+                                0, 0, 0, 0, Color.red(colour),
+                                0, 0, 0, 0, Color.green(colour),
+                                0, 0, 0, 0, Color.blue(colour),
+                                0, 0, 0, 1f, 0
+                        };
+
+                        colorMatrix.set(colorTransform);
+
+                        ColorMatrixColorFilter colorFilter = new ColorMatrixColorFilter(colorMatrix);
+                        Paint paint = new Paint();
+                        paint.setColorFilter(colorFilter);
+
                         canvas.drawBitmap(brick, x, y, paint);
                         x+= brick_width;
                     }
                     x = 0;
                     y+= brick_height;
                 }
+
+                // canvas.drawBitmap(flower, 0, 0, null);
                 surfaceHolder.unlockCanvasAndPost(canvas);
             }
         }
