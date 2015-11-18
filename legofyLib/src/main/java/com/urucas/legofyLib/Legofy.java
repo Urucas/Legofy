@@ -1,4 +1,4 @@
-package com.urucas.legogylib;
+package com.urucas.legofyLib;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -9,6 +9,8 @@ import android.graphics.Color;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
+
+import com.urucas.legofyLib.R;
 
 /**
  * Created by vruno on 11/18/15.

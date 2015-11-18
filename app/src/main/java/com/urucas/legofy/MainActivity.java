@@ -1,31 +1,13 @@
 package com.urucas.legofy;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
-import android.graphics.Matrix;
-import android.graphics.Paint;
-import android.graphics.Point;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.util.TypedValue;
-import android.view.Display;
+import android.support.v7.app.AppCompatActivity;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.WindowManager;
-import android.widget.LinearLayout;
 
-import com.urucas.legogylib.Legofy;
+import com.urucas.legofyLib.Legofy;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -51,9 +33,7 @@ public class MainActivity extends AppCompatActivity {
         public void surfaceCreated(SurfaceHolder surfaceHolder) {
             Canvas canvas = surfaceHolder.lockCanvas();
             if(canvas != null) {
-
                 Legofy.me(MainActivity.this, canvas, R.drawable.flower);
-                // canvas.drawBitmap(flowerResized, 0, 0, null);
                 surfaceHolder.unlockCanvasAndPost(canvas);
             }
         }
