@@ -81,6 +81,7 @@ public abstract class Legofy {
                 };
                 colorMatrix.set(colorTransform);
                 ColorMatrixColorFilter colorFilter = new ColorMatrixColorFilter(colorMatrix);
+
                 Paint paint1 = new Paint();
                 paint1.setColorFilter(colorFilter);
                 canvas.drawBitmap(brickResized, x, y, paint1);
