@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
+import android.util.Log;
 
 import com.urucas.legofyLib.R;
 
@@ -27,25 +28,35 @@ public abstract class Legofy {
     public static void me(Context context, Canvas canvas, Bitmap bmp) {
 
         // set canvas background color to white
-        canvas.drawColor(Color.WHITE);
+        canvas.drawColor(Color.BLACK);
         int cw = canvas.getWidth(), ch = canvas.getHeight();
+        Log.i("width", String.valueOf(cw));
+        Log.i("height", String.valueOf(ch));
 
         // resize flower image to fit screen width
         Bitmap bmpResized;
         int flower_width = bmp.getWidth(), flower_height = bmp.getHeight();
+        Log.i("width", String.valueOf(flower_width));
+        Log.i("height", String.valueOf(flower_height));
+
         if(flower_width < cw) {
-            float percent = (flower_width*100)/cw;
-            float scaleHeight = (percent*flower_height)/ch;
+            Log.i("aca", "1");
+            float percent = (cw*100)/flower_width;
+            flower_width = cw;
+            Log.i("percent", String.valueOf(percent));
+            float scaleHeight = (percent*flower_height)/100;
+            Log.i("scale height", String.valueOf((int)scaleHeight));
             bmpResized = Bitmap.createScaledBitmap(bmp, flower_width, (int)scaleHeight, false);
-            flower_height = (int) scaleHeight;
-            bmp.recycle();
+            flower_height = scaleHeight > ch ? ch : (int) scaleHeight;
+            // bmp.recycle();
         }else{
+            Log.i("aca", "2");
             float percent = (cw*100)/flower_width;
             float scaleHeight = flower_height*(percent/100);
             bmpResized = Bitmap.createScaledBitmap(bmp, cw, (int)scaleHeight, false);
             flower_width = cw;
             flower_height = (int)scaleHeight;
-            bmp.recycle();
+            // bmp.recycle();
         }
 
         // resize brick
@@ -57,9 +68,9 @@ public abstract class Legofy {
         int y = 0, x = 0;
         while(y < flower_height) {
             while(x < flower_width) {
-
                 // get image pixel center colour
                 int pos_x = x + brick_width/2, pos_y = y + brick_height/2;
+                Log.i("y", String.valueOf(pos_y));
                 int colour = bmpResized.getPixel(pos_x, pos_y);
                 int r = Color.red(colour),
                         g = Color.green(colour),
@@ -90,6 +101,9 @@ public abstract class Legofy {
             }
             x = 0;
             y+= brick_height;
+
         }
+
+        // canvas.drawBitmap(bmpResized, 0, 0, new Paint());
     }
 }

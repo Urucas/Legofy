@@ -3,6 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -14,4 +15,25 @@
             android:layout_weight="1">
         </FrameLayout>
     </LinearLayout>
+
+    <View android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_centerInParent="true"
+        android:id="@+id/square"
+        android:background="@drawable/white_border">
+    </View>
+
+    <ImageButton
+        android:layout_width="76dp"
+        android:layout_height="76dp"
+        android:id="@+id/cameraBtt"
+        android:src="@drawable/camera_orange"
+        android:scaleType="fitXY"
+        android:background="@null"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp" />
+
 </RelativeLayout>
