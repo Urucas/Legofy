@@ -27,23 +27,18 @@ public abstract class Legofy {
 
     public static void me(Context context, Canvas canvas, Bitmap bmp) {
 
+        Log.i("here", "yes");
         // set canvas background color to white
         canvas.drawColor(Color.BLACK);
         int cw = canvas.getWidth(), ch = canvas.getHeight();
-        Log.i("width", String.valueOf(cw));
-        Log.i("height", String.valueOf(ch));
 
         // resize flower image to fit screen width
         Bitmap bmpResized;
         int flower_width = bmp.getWidth(), flower_height = bmp.getHeight();
-        Log.i("width", String.valueOf(flower_width));
-        Log.i("height", String.valueOf(flower_height));
 
         if(flower_width < cw) {
-            Log.i("aca", "1");
             float percent = (cw*100)/flower_width;
             flower_width = cw;
-            Log.i("percent", String.valueOf(percent));
             float scaleHeight = (percent*flower_height)/100;
             Log.i("scale height", String.valueOf((int)scaleHeight));
             bmpResized = Bitmap.createScaledBitmap(bmp, flower_width, (int)scaleHeight, false);
@@ -70,7 +65,6 @@ public abstract class Legofy {
             while(x < flower_width) {
                 // get image pixel center colour
                 int pos_x = x + brick_width/2, pos_y = y + brick_height/2;
-                Log.i("y", String.valueOf(pos_y));
                 int colour = bmpResized.getPixel(pos_x, pos_y);
                 int r = Color.red(colour),
                         g = Color.green(colour),
@@ -103,7 +97,6 @@ public abstract class Legofy {
             y+= brick_height;
 
         }
-
         // canvas.drawBitmap(bmpResized, 0, 0, new Paint());
     }
 }

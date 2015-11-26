@@ -1,6 +1,17 @@
 <resources>
     <string name="app_name">Legofy</string>
-    <string name="camera_button">Camera</string>
+    <string name="camera_button">Take picture</string>
     <string name="image_button">Image</string>
     <string name="error_getting_camera">Error opening camera</string>
+    <string name="share">Share</string>
+    <string name="image_name">lego_image_$1%s.jpg</string>
+    <string name="error_getting_image">An error occurr while trying to generate the image to share</string>
+    <string name="about">About</string>
+    <string name="processing_picture">processing picture...</string>
+    <string name="about_text"><![CDATA[
+    <b>Legofy</b> is an Open Source project distributed with an MIT License, you can check the source code <a href="https://github.com/Urucas/Legofy">here.</a> You are welcome to contribute, add issues and share ideas to add to the application. <br /><br />
+    LEGO, the LEGO logo, DUPLO, the DUPLO logo, BIONICLE, the BIONICLE logo, LEGENDS OF CHIMA, the LEGENDS OF CHIMA logo, DIMENSIONS, the DIMENSIONS logo, the FRIENDS logo, the Minifigure, the MINIFIGURES logo, MINDSTORMS, the MINDSTORMS EV3 logo, MIXELS, the MIXELS logo, NINJAGO, the NINJAGO logo, NEXO KNIGHTS, and the NEXO KNIGHTS logo are trademarks and/or copyrights of the LEGO Group. ©2015 the LEGO Group. All rights reserved. <br />
+    Check the LEGO <a href="http://www.lego.com/en-us/legal/legal-notice">legal notice</a> for more information. ]]>
+    </string>
+    <string name="share_text"><![CDATA[I\'m using a Lego Camera, how cool is that?]]></string>
 </resources>

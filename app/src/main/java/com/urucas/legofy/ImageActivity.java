@@ -1,16 +1,28 @@
 package com.urucas.legofy;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
+import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.widget.Toast;
 
 import com.urucas.legofyLib.Legofy;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Random;
 
 /**
  * Created by vruno on 11/18/15.
@@ -18,12 +30,61 @@ import com.urucas.legofyLib.Legofy;
 public class ImageActivity extends ActionBarActivity {
 
     public static Bitmap picture;
+    private LegoView legoView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-        setContentView(new LegoView(ImageActivity.this));
+        legoView = new LegoView(ImageActivity.this);
+        setContentView(legoView);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.share_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.shareBtt:
+                share();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void share() {
+        Intent share = new Intent(Intent.ACTION_SEND);
+        share.setType("image/jpeg");
+
+        Bitmap bmp = Bitmap.createBitmap(this.legoView.getWidth(), this.legoView.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas shareCanvas = new Canvas(bmp);
+        Legofy.me(ImageActivity.this, shareCanvas, picture);
+
+        Bitmap newBmp = bmp.copy(bmp.getConfig(), true);
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        newBmp.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+
+        Random r = new Random();
+        float rf = r.nextFloat();
+        String imageName = String.format(getResources().getString(R.string.image_name), String.valueOf(rf));
+        Log.i("image name", imageName);
+        File f = new File(Environment.getExternalStorageDirectory() + File.separator + imageName);
+        try {
+            f.createNewFile();
+            FileOutputStream fo = new FileOutputStream(f);
+            fo.write(bytes.toByteArray());
+            Log.i("image path", f.getAbsolutePath().toString());
+            share.putExtra(Intent.EXTRA_STREAM, Uri.parse(f.getPath()));
+            startActivity(Intent.createChooser(share, "Share Image"));
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(ImageActivity.this, R.string.error_getting_image, Toast.LENGTH_LONG);
+        }
     }
 
     public class LegoView extends SurfaceView implements SurfaceHolder.Callback2 {
@@ -34,28 +95,21 @@ public class ImageActivity extends ActionBarActivity {
         }
 
         @Override
-        public void surfaceRedrawNeeded(SurfaceHolder surfaceHolder) {
-
-        }
+        public void surfaceRedrawNeeded(SurfaceHolder surfaceHolder) {}
 
         @Override
         public void surfaceCreated(SurfaceHolder surfaceHolder) {
-            Canvas canvas = surfaceHolder.lockCanvas();
+           Canvas canvas = surfaceHolder.lockCanvas();
             if(canvas != null) {
                 Legofy.me(ImageActivity.this, canvas, picture);
-                // canvas.drawBitmap(picture, 0, 0, null);
                 surfaceHolder.unlockCanvasAndPost(canvas);
             }
         }
 
         @Override
-        public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
-
-        }
+        public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {}
 
         @Override
-        public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
-
-        }
+        public void surfaceDestroyed(SurfaceHolder surfaceHolder) {}
     }
 }

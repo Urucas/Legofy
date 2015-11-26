@@ -43,9 +43,6 @@ public class CameraActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
-
         cameraPreview = (FrameLayout) findViewById(R.id.camera_preview);
 
         int cameraCount = 0;
@@ -86,7 +83,7 @@ public class CameraActivity extends ActionBarActivity {
             Camera.getCameraInfo(cameraId, cameraInfo);
             mCamera = Camera.open(cameraId);
 
-            mCamera.setDisplayOrientation(90);
+            mCamera.setDisplayOrientation(0);
             if(cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_BACK) {
                 Camera.Parameters params = mCamera.getParameters();
                 params.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
@@ -104,6 +101,7 @@ public class CameraActivity extends ActionBarActivity {
         if(isTakingPicture) {
             return;
         }
+        Toast.makeText(CameraActivity.this, R.string.processing_picture, Toast.LENGTH_LONG);
         isTakingPicture = true;
         mCamera.takePicture(null, null, new Camera.PictureCallback() {
             @Override
@@ -130,11 +128,13 @@ public class CameraActivity extends ActionBarActivity {
                 // rotate according to camera
                 Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
                 Camera.getCameraInfo(selectedCamera, cameraInfo);
+                /*
                 if(cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_BACK) {
                     mat.postRotate(90);
                 }else{
                     mat.postRotate(-90);
                 }
+                */
 
                 Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length, opt);
                 bmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), mat, true);

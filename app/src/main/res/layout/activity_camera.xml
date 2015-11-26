@@ -16,15 +16,6 @@
         </FrameLayout>
     </LinearLayout>
 
-    <View android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_centerInParent="true"
-        android:id="@+id/square"
-        android:background="@drawable/white_border">
-    </View>
-
     <ImageButton
         android:layout_width="76dp"
         android:layout_height="76dp"
@@ -32,8 +23,9 @@
         android:src="@drawable/camera_orange"
         android:scaleType="fitXY"
         android:background="@null"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp" />
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="12dp" />
 
 </RelativeLayout>
