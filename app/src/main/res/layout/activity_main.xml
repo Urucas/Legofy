@@ -5,25 +5,47 @@
     tools:context=".MainActivity"
     >
 
-    <LinearLayout
+    <ImageView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical">
+        android:src="@drawable/main_background"
+        android:scaleType="centerCrop" />
 
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/image_button"
-            android:id="@+id/imageBtt"
-            android:layout_margin="8dp"/>
+    <View
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:layout_centerInParent="true"
+        android:id="@+id/view">
+    </View>
 
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/camera_button"
-            android:id="@+id/cameraBtt"
-            android:layout_margin="8dp" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/camera_button"
+        android:id="@+id/cameraBtt"
+        android:layout_above="@+id/view"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="12dp"
+        android:background="#279600"
+        android:textColor="#fff"
+        android:padding="8dp"
+        />
 
-    </LinearLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/about"
+        android:layout_alignTop="@+id/view"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="12dp"
+        android:id="@+id/aboutBtt"
+        android:layout_alignLeft="@+id/cameraBtt"
+        android:layout_alignStart="@+id/cameraBtt"
+        android:background="#0964B9"
+        android:textColor="#fff"
+        android:layout_marginTop="4dp"
+        android:padding="8dp" />
 
 </RelativeLayout>

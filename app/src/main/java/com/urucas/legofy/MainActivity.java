@@ -22,12 +22,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button imageButton = (Button)  findViewById(R.id.imageBtt);
-        imageButton.setOnClickListener(new View.OnClickListener() {
+        Button aboutButton = (Button) findViewById(R.id.aboutBtt);
+        aboutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ImageActivity.class);
-                startActivity(intent);
+
             }
         });
     }
