@@ -34,23 +34,21 @@ public abstract class Legofy {
 
         // resize flower image to fit screen width
         Bitmap bmpResized;
-        int flower_width = bmp.getWidth(), flower_height = bmp.getHeight();
+        int bmpWidth = bmp.getWidth(), bmpHeight = bmp.getHeight();
 
-        if(flower_width < cw) {
-            float percent = (cw*100)/flower_width;
-            flower_width = cw;
-            float scaleHeight = (percent*flower_height)/100;
-            Log.i("scale height", String.valueOf((int)scaleHeight));
-            bmpResized = Bitmap.createScaledBitmap(bmp, flower_width, (int)scaleHeight, false);
-            flower_height = scaleHeight > ch ? ch : (int) scaleHeight;
+        if(bmpWidth < cw) {
+            float percent = (cw*100)/bmpWidth;
+            bmpWidth = cw;
+            float scaleHeight = (percent*bmpHeight)/100;
+            bmpResized = Bitmap.createScaledBitmap(bmp, bmpWidth, (int)scaleHeight, false);
+            bmpHeight = scaleHeight > ch ? ch : (int) scaleHeight;
             // bmp.recycle();
         }else{
-            Log.i("aca", "2");
-            float percent = (cw*100)/flower_width;
-            float scaleHeight = flower_height*(percent/100);
+            float percent = (cw*100)/bmpWidth;
+            float scaleHeight = bmpHeight*(percent/100);
             bmpResized = Bitmap.createScaledBitmap(bmp, cw, (int)scaleHeight, false);
-            flower_width = cw;
-            flower_height = (int)scaleHeight;
+            bmpWidth = cw;
+            bmpHeight = (int)scaleHeight;
             // bmp.recycle();
         }
 
@@ -61,8 +59,8 @@ public abstract class Legofy {
         Bitmap brickResized = Bitmap.createScaledBitmap(brick, brick_width, brick_height, false);
 
         int y = 0, x = 0;
-        while(y < flower_height) {
-            while(x < flower_width) {
+        while(y < bmpHeight) {
+            while(x < bmpWidth) {
                 // get image pixel center colour
                 int pos_x = x + brick_width/2, pos_y = y + brick_height/2;
                 int colour = bmpResized.getPixel(pos_x, pos_y);

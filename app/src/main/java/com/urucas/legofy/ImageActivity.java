@@ -14,6 +14,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.urucas.legofyLib.Legofy;
@@ -35,8 +38,21 @@ public class ImageActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        legoView = new LegoView(ImageActivity.this);
-        setContentView(legoView);
+
+        setContentView(R.layout.activity_image);
+        FrameLayout frame = (FrameLayout) findViewById(R.id.legoFrame);
+        if(savedInstanceState == null) {
+            legoView = new LegoView(ImageActivity.this);
+            frame.addView(legoView);
+        }
+
+        ImageButton shareBtt = (ImageButton) findViewById(R.id.shareBtt);
+        shareBtt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                share();
+            }
+        });
     }
 
     @Override
@@ -72,15 +88,15 @@ public class ImageActivity extends ActionBarActivity {
         Random r = new Random();
         float rf = r.nextFloat();
         String imageName = String.format(getResources().getString(R.string.image_name), String.valueOf(rf));
-        Log.i("image name", imageName);
         File f = new File(Environment.getExternalStorageDirectory() + File.separator + imageName);
         try {
             f.createNewFile();
             FileOutputStream fo = new FileOutputStream(f);
             fo.write(bytes.toByteArray());
-            Log.i("image path", f.getAbsolutePath().toString());
-            share.putExtra(Intent.EXTRA_STREAM, Uri.parse(f.getPath()));
-            startActivity(Intent.createChooser(share, "Share Image"));
+            String path = "file://"+ f.getAbsolutePath();
+            share.putExtra(Intent.EXTRA_STREAM, Uri.parse(path));
+            startActivity(Intent.createChooser(share, "Share Legofy'ed image!"));
+            fo.close();
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(ImageActivity.this, R.string.error_getting_image, Toast.LENGTH_LONG);

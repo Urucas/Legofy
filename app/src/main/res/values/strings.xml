@@ -4,7 +4,7 @@
     <string name="image_button">Image</string>
     <string name="error_getting_camera">Error opening camera</string>
     <string name="share">Share</string>
-    <string name="image_name">lego_image_$1%s.jpg</string>
+    <string name="image_name">lego_image_%s.jpg</string>
     <string name="error_getting_image">An error occurr while trying to generate the image to share</string>
     <string name="about">About</string>
     <string name="processing_picture">processing picture...</string>
