@@ -34,13 +34,15 @@ public class ImageActivity extends ActionBarActivity {
 
     public static Bitmap picture;
     private LegoView legoView;
+    private FrameLayout frame;
+    public static String sharePath = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_image);
-        FrameLayout frame = (FrameLayout) findViewById(R.id.legoFrame);
+        frame = (FrameLayout) findViewById(R.id.legoFrame);
         if(savedInstanceState == null) {
             legoView = new LegoView(ImageActivity.this);
             frame.addView(legoView);
@@ -53,13 +55,6 @@ public class ImageActivity extends ActionBarActivity {
                 share();
             }
         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.share_menu, menu);
-        return true;
     }
 
     @Override
@@ -76,31 +71,42 @@ public class ImageActivity extends ActionBarActivity {
     private void share() {
         Intent share = new Intent(Intent.ACTION_SEND);
         share.setType("image/jpeg");
+        Log.i("sharePath", String.valueOf(sharePath));
+        if(sharePath == null) {
 
-        Bitmap bmp = Bitmap.createBitmap(this.legoView.getWidth(), this.legoView.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas shareCanvas = new Canvas(bmp);
-        Legofy.me(ImageActivity.this, shareCanvas, picture);
+            Bitmap bmp = Bitmap.createBitmap(this.legoView.getWidth(), this.legoView.getHeight(), Bitmap.Config.ARGB_8888);
+            Canvas shareCanvas = new Canvas(bmp);
+            Legofy.me(ImageActivity.this, shareCanvas, picture);
 
-        Bitmap newBmp = bmp.copy(bmp.getConfig(), true);
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        newBmp.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+            Bitmap newBmp = bmp.copy(bmp.getConfig(), true);
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            newBmp.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
 
-        Random r = new Random();
-        float rf = r.nextFloat();
-        String imageName = String.format(getResources().getString(R.string.image_name), String.valueOf(rf));
-        File f = new File(Environment.getExternalStorageDirectory() + File.separator + imageName);
-        try {
-            f.createNewFile();
-            FileOutputStream fo = new FileOutputStream(f);
-            fo.write(bytes.toByteArray());
-            String path = "file://"+ f.getAbsolutePath();
-            share.putExtra(Intent.EXTRA_STREAM, Uri.parse(path));
-            startActivity(Intent.createChooser(share, "Share Legofy'ed image!"));
-            fo.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(ImageActivity.this, R.string.error_getting_image, Toast.LENGTH_LONG);
+            Random r = new Random();
+            float rf = r.nextFloat();
+            String imageName = String.format(getResources().getString(R.string.image_name), String.valueOf(rf));
+            try {
+                File f = new File(Environment.getExternalStorageDirectory() + File.separator + imageName);
+                sharePath = "file://" + f.getAbsolutePath();
+                f.createNewFile();
+                FileOutputStream fo = new FileOutputStream(f);
+                fo.write(bytes.toByteArray());
+                fo.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(ImageActivity.this, R.string.error_getting_image, Toast.LENGTH_LONG);
+                return;
+            }
         }
+        share.putExtra(Intent.EXTRA_STREAM, Uri.parse(sharePath));
+        startActivity(Intent.createChooser(share, "Share Legofy'ed image!"));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.share_menu, menu);
+        return true;
     }
 
     public class LegoView extends SurfaceView implements SurfaceHolder.Callback2 {

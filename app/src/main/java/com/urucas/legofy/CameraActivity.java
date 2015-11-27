@@ -142,8 +142,9 @@ public class CameraActivity extends ActionBarActivity {
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 bmp.compress(Bitmap.CompressFormat.PNG, 80, stream);
 
+                ImageActivity.sharePath = null;
                 ImageActivity.picture = bmp;
-
+                
                 Intent intent = new Intent(CameraActivity.this, ImageActivity.class);
                 startActivity(intent);
 

@@ -27,7 +27,6 @@ public abstract class Legofy {
 
     public static void me(Context context, Canvas canvas, Bitmap bmp) {
 
-        Log.i("here", "yes");
         // set canvas background color to white
         canvas.drawColor(Color.BLACK);
         int cw = canvas.getWidth(), ch = canvas.getHeight();
