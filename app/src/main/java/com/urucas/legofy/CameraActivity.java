@@ -144,7 +144,7 @@ public class CameraActivity extends ActionBarActivity {
 
                 ImageActivity.sharePath = null;
                 ImageActivity.picture = bmp;
-                
+
                 Intent intent = new Intent(CameraActivity.this, ImageActivity.class);
                 startActivity(intent);
 

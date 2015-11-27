@@ -46,6 +46,7 @@ public class ImageActivity extends ActionBarActivity {
         if(savedInstanceState == null) {
             legoView = new LegoView(ImageActivity.this);
             frame.addView(legoView);
+        }else{
         }
 
         ImageButton shareBtt = (ImageButton) findViewById(R.id.shareBtt);
@@ -71,7 +72,6 @@ public class ImageActivity extends ActionBarActivity {
     private void share() {
         Intent share = new Intent(Intent.ACTION_SEND);
         share.setType("image/jpeg");
-        Log.i("sharePath", String.valueOf(sharePath));
         if(sharePath == null) {
 
             Bitmap bmp = Bitmap.createBitmap(this.legoView.getWidth(), this.legoView.getHeight(), Bitmap.Config.ARGB_8888);
@@ -113,15 +113,17 @@ public class ImageActivity extends ActionBarActivity {
 
         public LegoView(Context context) {
             super(context);
+            setDrawingCacheEnabled(true);
             getHolder().addCallback(this);
         }
 
         @Override
-        public void surfaceRedrawNeeded(SurfaceHolder surfaceHolder) {}
+        public void surfaceRedrawNeeded(SurfaceHolder surfaceHolder) {
+        }
 
         @Override
         public void surfaceCreated(SurfaceHolder surfaceHolder) {
-           Canvas canvas = surfaceHolder.lockCanvas();
+            Canvas canvas = surfaceHolder.lockCanvas();
             if(canvas != null) {
                 Legofy.me(ImageActivity.this, canvas, picture);
                 surfaceHolder.unlockCanvasAndPost(canvas);
@@ -129,9 +131,13 @@ public class ImageActivity extends ActionBarActivity {
         }
 
         @Override
-        public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {}
+        public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
+
+        }
 
         @Override
-        public void surfaceDestroyed(SurfaceHolder surfaceHolder) {}
+        public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
+
+        }
     }
 }
