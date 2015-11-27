@@ -1,5 +1,6 @@
 package com.urucas.legofy;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -34,6 +35,13 @@ public class AboutActivity extends ActionBarActivity {
     }
 
     private void share() {
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getResources().getString(R.string.share_subject));
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, getResources().getString(R.string.share_text));
 
+        Intent openInChooser = Intent.createChooser(sharingIntent, "via @urucas");
+        openInChooser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(openInChooser);
     }
 }

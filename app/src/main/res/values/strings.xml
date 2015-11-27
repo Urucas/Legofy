@@ -13,5 +13,6 @@
     LEGO, the LEGO logo, DUPLO, the DUPLO logo, BIONICLE, the BIONICLE logo, LEGENDS OF CHIMA, the LEGENDS OF CHIMA logo, DIMENSIONS, the DIMENSIONS logo, the FRIENDS logo, the Minifigure, the MINIFIGURES logo, MINDSTORMS, the MINDSTORMS EV3 logo, MIXELS, the MIXELS logo, NINJAGO, the NINJAGO logo, NEXO KNIGHTS, and the NEXO KNIGHTS logo are trademarks and/or copyrights of the LEGO Group. ©2015 the LEGO Group. All rights reserved. <br />
     Check the LEGO <a href="http://www.lego.com/en-us/legal/legal-notice">legal notice</a> for more information. ]]>
     </string>
-    <string name="share_text"><![CDATA[I\'m using a Lego Camera, how cool is that?]]></string>
+    <string name="share_text"><![CDATA[I\'m using a Lego Camera, how cool is that? http://urucas.com/labs/legofy]]></string>
+    <string name="share_subject">Share me</string>
 </resources>
