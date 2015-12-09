@@ -1,0 +1,62 @@
+body {
+  margin:0px;
+  padding:0px;
+  font-family:Verdana;
+  font-size:1em;
+  background:#f7f7f7
+}
+
+.background {
+  background: url('../img/lego_background.png');
+  height:300px;
+  position:absolute;
+  display:block;
+  width:100%;
+  z-index:-1;
+  top:0px;
+  left:0px;
+  -webkit-box-shadow: 0px 2px 5px 0px rgba(60,60,60,0.5);
+  -moz-box-shadow: 0px 2px 5px 0px rgba(60,60,60,0.5);
+  box-shadow: 0px 2px 5px 0px rgba(60,60,60,0.5);
+}
+
+.download {
+   margin-top:80px;
+   text-align:center;
+   margin-bottom:4px;
+ }
+
+.container img{
+  margin-left:auto;
+  margin-right:auto;
+  display:block;
+}
+
+.open-source{
+  text-align:center;
+}
+
+.open-source a{
+  text-decoration:none;
+  font-size:1.5em;
+  color:#000;
+  vertical-align:sub;
+}
+
+.case {
+  width: 604px;
+  height:312px;
+  background: url("../img/phone_landscape.png");
+  background-repeat:no-repeat;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+@media (max-width: 610px) {
+  .case {
+    width: 312px;
+    height:604px;
+    background: url("../img/phone_portrait.png");
+    background-repeat:no-repeat;
+  }
+}
