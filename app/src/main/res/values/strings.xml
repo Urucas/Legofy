@@ -15,4 +15,12 @@
     </string>
     <string name="share_text"><![CDATA[I\'m using a Lego Camera, how cool is that? http://urucas.com/labs/legofy]]></string>
     <string name="share_subject">Share me</string>
+    <string name="camera_permission_denied">Sorry, you denied the camera use! We cant take a picture without that permission</string>
+    <string name="camera_access">Camera Access</string>
+    <string name="camera_permission_rationale">Legofy needs access to your camera.</string>
+    <string name="no_way">No way</string>
+    <string name="give_access">Give Access</string>
+    <string name="storage_access">Storage Access</string>
+    <string name="storage_permission_rationale">To share the created legofy image we need to write a temporary file into your local storage.</string>
+    <string name="storage_permission_denied">Buu! You cant share the legofy image if you dont give us access to write in the local storage</string>
 </resources>

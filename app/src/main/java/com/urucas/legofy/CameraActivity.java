@@ -1,12 +1,16 @@
 package com.urucas.legofy;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.hardware.Camera;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.SurfaceHolder;
@@ -54,8 +58,8 @@ public class CameraActivity extends ActionBarActivity {
                 takePicture();
             }
         });
-
         startCameraPreview(cameras.get(0));
+
     }
 
     private void startCameraPreview(int cameraId) {
