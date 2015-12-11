@@ -31,6 +31,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.urucas.legofyLib.Callback;
 import com.urucas.legofyLib.Legofy;
 
 import java.io.ByteArrayOutputStream;
@@ -74,7 +75,12 @@ public class ImageActivity extends ActionBarActivity {
 
             Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
             Canvas shareCanvas = new Canvas(bmp);
-            Legofy.me(ImageActivity.this, shareCanvas, picture);
+            Legofy.me(ImageActivity.this, shareCanvas, picture, new Callback() {
+                @Override
+                public void done(Exception e) {
+                    if(e!=null) e.printStackTrace();
+                }
+            });
 
             newBmp = bmp.copy(bmp.getConfig(), true);
             bytes = new ByteArrayOutputStream();
@@ -175,7 +181,7 @@ public class ImageActivity extends ActionBarActivity {
                 fo.close();
             } catch (IOException e) {
                 e.printStackTrace();
-                Toast.makeText(ImageActivity.this, R.string.error_getting_image, Toast.LENGTH_LONG);
+                Toast.makeText(ImageActivity.this, R.string.error_getting_image, Toast.LENGTH_LONG).show();
                 return;
             }
         }

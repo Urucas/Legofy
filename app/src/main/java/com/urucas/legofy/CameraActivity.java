@@ -71,7 +71,7 @@ public class CameraActivity extends ActionBarActivity {
             mPreview = new CameraPreview(this, mCamera);
             cameraPreview.addView(mPreview);
         }else{
-            Toast.makeText(CameraActivity.this, R.string.error_getting_camera, Toast.LENGTH_SHORT);
+            Toast.makeText(CameraActivity.this, R.string.error_getting_camera, Toast.LENGTH_SHORT).show();
             finish();
         }
     }
@@ -100,7 +100,7 @@ public class CameraActivity extends ActionBarActivity {
         if(isTakingPicture) {
             return;
         }
-        Toast.makeText(CameraActivity.this, R.string.processing_picture, Toast.LENGTH_LONG);
+        Toast.makeText(CameraActivity.this, R.string.processing_picture, Toast.LENGTH_LONG).show();
         isTakingPicture = true;
         mCamera.takePicture(null, null, new Camera.PictureCallback() {
             @Override
