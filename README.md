@@ -22,3 +22,4 @@ MIT
 #Related
 * [JuanPotato/Legofy](https://github.com/JuanPotato/Legofy) python library
 * [Wildhoney/Legofy](https://github.com/Wildhoney/Legofy) Browser implementation with SVG
+* [ByJC/angular-legofy](https://github.com/ByJC/angular-legofy) A simple way to legofy your image with angularJS
